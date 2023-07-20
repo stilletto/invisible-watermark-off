@@ -73,21 +73,21 @@ class WatermarkEncoder(object):
         RivaWatermark.loadModel()
 
     def encode(self, cv2Image, method='dwtDct', **configs):
-        (r, c, channels) = cv2Image.shape
-        if r*c < 256*256:
-            raise RuntimeError('image too small, should be larger than 256x256')
-
-        if method == 'dwtDct':
-            embed = EmbedMaxDct(self._watermarks, wmLen=self._wmLen, **configs)
-            return embed.encode(cv2Image)
-        elif method == 'dwtDctSvd':
-            embed = EmbedDwtDctSvd(self._watermarks, wmLen=self._wmLen, **configs)
-            return embed.encode(cv2Image)
-        elif method == 'rivaGan':
-            embed = RivaWatermark(self._watermarks, self._wmLen)
-            return embed.encode(cv2Image)
-        else:
-            raise NameError('%s is not supported' % method)
+        # (r, c, channels) = cv2Image.shape
+        # if r*c < 256*256:
+        #     raise RuntimeError('image too small, should be larger than 256x256')
+        return cv2Image
+        # if method == 'dwtDct':
+        #     embed = EmbedMaxDct(self._watermarks, wmLen=self._wmLen, **configs)
+        #     return embed.encode(cv2Image)
+        # elif method == 'dwtDctSvd':
+        #     embed = EmbedDwtDctSvd(self._watermarks, wmLen=self._wmLen, **configs)
+        #     return embed.encode(cv2Image)
+        # elif method == 'rivaGan':
+        #     embed = RivaWatermark(self._watermarks, self._wmLen)
+        #     return embed.encode(cv2Image)
+        # else:
+        #     raise NameError('%s is not supported' % method)
 
 class WatermarkDecoder(object):
     def __init__(self, wm_type='bytes', length=0):
